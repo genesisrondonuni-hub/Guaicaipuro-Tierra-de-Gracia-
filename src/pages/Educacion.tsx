@@ -416,8 +416,15 @@ export default function Educacion() {
         </div>
       </section>
 
-      {/* Sección 4: Los 14 Cargos Oficiales (--color-bg-soft) */}
-      <section id="estructura-cargos" className="vente-section-soft scroll-mt-20">
+      {/* Sección 3.5: Propuesta Estructural Dirección de Educación (Fomento), Sub-estructuras y Calidad Educativa */}
+      <section id="subestructuras-calidad" className="vente-section-soft scroll-mt-20">
+        <div className="vente-container">
+          <EducationStructureProposal />
+        </div>
+      </section>
+
+      {/* Sección 4: Los 14 Cargos Oficiales (--color-bg-light) */}
+      <section id="estructura-cargos" className="vente-section-light scroll-mt-20">
         <div className="vente-container">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6" style={{ borderBottom: '1px solid var(--color-border)' }}>
             <div>

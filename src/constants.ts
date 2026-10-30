@@ -75,19 +75,19 @@ export const EDUCATION_PILLARS: EducationPillar[] = [
   },
   {
     id: "evaluacion",
-    title: "Evaluación Estandarizada y Calidad Curricular",
-    shortDesc: "Pruebas anuales de rendimiento con publicación abierta de resultados para las familias.",
-    fullDesc: "Restablecimiento de exámenes anuales independientes en lectoescritura, matemáticas y ciencias. Los resultados son públicos por escuela para que los padres tomen decisiones informadas y los colegios compitan en calidad por los vouchers de los estudiantes.",
+    title: "Unidad de Calidad Educativa, PMI y Dashboards",
+    shortDesc: "Acompañamiento no punitivo, 3 dimensiones de calidad, Planes de Mejora (PMI) y Tableros de Control en tiempo real.",
+    fullDesc: "Blindada por decreto u ordenanza municipal y alineada a estándares nacionales, la Unidad de Calidad Educativa evalúa 3 dimensiones (Gestión Institucional, Práctica Pedagógica y Resultados del Aprendizaje) mediante 3 oficinas: Evaluación y Estadística, Acompañamiento e Innovación y Formación Continua. Ejecuta la ruta en 5 pasos: Diagnóstico Inicial, Plan Piloto (2-3 escuelas), Evaluación General, Planes de Mejora Institucional (PMI) y Transparencia vía Dashboards e Informe Anual.",
     iconName: "LineChart",
-    metrics: "Auditorías académicas periódicas sin intromisión política"
+    metrics: "3 Dimensiones | Ruta de 5 Pasos | Dashboards en Tiempo Real"
   },
   {
     id: "concesiones-nutricion",
-    title: "Comedores y Mantenimiento Concesionados",
-    shortDesc: "0 obreros directos en nómina municipal: servicios contratados con alta calidad e higiene.",
-    fullDesc: "El mantenimiento de la infraestructura escolar y el programa de alimentación infantil son operados por empresas y cooperativas privadas especializadas bajo estricta fiscalización del Ingeniero Inspector y del Nutricionista Auditor de la Dirección de Educación.",
+    title: "Infraestructura, Servicios y Programas Sociales",
+    shortDesc: "Coordinación con Obras Públicas, comedores concesionados, dotación de uniformes y atención psicopedagógica.",
+    fullDesc: "A través de la Oficina de Programas Sociales y la Oficina de Infraestructura y Servicios (articulada con la Dirección de Infraestructura y Urbanismo), se planifican reparaciones de plantas físicas, logística de insumos básicos, dotación de uniformes, atención psicopedagógica y comedores escolares auditados.",
     iconName: "Utensils",
-    metrics: "Auditoría calórica y sanitaria 100% garantizada"
+    metrics: "Articulación transversal con Infraestructura y Sindicatura"
   }
 ];
 
@@ -142,7 +142,7 @@ export const AXES: Axis[] = [
       "Digitalización de procesos municipales (E-Gov y Ventanilla Única)"
     ],
     longDescription: "Este eje se centra en el rescate de los principios republicanos de independencia y contrapeso. Se propone una reorganización profunda para concentrar al municipio en sus funciones esenciales de seguridad, orden jurídico y servicios básicos, eliminando burocracia clientelar y profesionalizando al servidor público mediante concursos abiertos y mérito comprobado.",
-    educationImpact: "Establece el marco institucional para despolitizar las escuelas y garantizar que los directores de planteles sean designados por credenciales académicas y no por lealtades ideológicas."
+    educationImpact: "Establece el blindaje jurídico (Ordenanza o Decreto Alcaldicio) para la Unidad de Calidad Educativa y la articulación de la Unidad de Control y Supervisión junto al Síndico Procurador."
   },
   {
     id: 2,
@@ -155,20 +155,20 @@ export const AXES: Axis[] = [
       "Atracción de inversiones y fomento del libre comercio local"
     ],
     longDescription: "La 'Estabilización Expansiva' busca poner fin a la asfixia económica mediante reglas fiscales claras, eliminación de trabas regulatorias y estabilidad cambiaria. El pilar central es el respeto irrestricto a la propiedad privada, abriendo el camino para que Guaicaipuro sea un polo agroindustrial, comercial y de servicios de los Altos Mirandinos.",
-    educationImpact: "El crecimiento económico genera los recursos fiscales transparentes que financian el Fondo Municipal de Vouchers Educativos sin endeudamiento ni inflación."
+    educationImpact: "Garantiza el presupuesto asignado a la Unidad de Planificación y Presupuesto y a la Unidad de Calidad Educativa para contratar evaluadores, estadísticos, herramientas tecnológicas y financiar el Fondo de Vouchers."
   },
   {
     id: 3,
     title: "Sociedad de Oportunidades y Capital Intelectual",
-    description: "Transformación del capital humano mediante la Dirección de Educación y Capital Intelectual, vouchers escolares a la demanda y salud integral.",
+    description: "Transformación educativa mediante la Dirección de Educación (Fomento), sus 3 Unidades Rectoras, 7 Oficinas Operativas, Calidad Educativa y Vouchers.",
     details: [
-      "Dirección de Educación y Capital Intelectual (Despacho 07 del Organigrama)",
-      "Sistema de Vouchers Escolares: subsidio a la demanda para que la familia elija",
-      "Escuelas Autónomas en cogestión y laboratorios de Robótica / STEM",
-      "Sistema de Salud Integral por Aseguramiento y capitalización de pensiones"
+      "Dirección de Educación (Fomento): Unidad de Planificación y Presupuesto, Control y Supervisión, y Calidad Educativa",
+      "7 Oficinas Operativas: Coordinación Pedagógica, Programas Sociales, Infraestructura, Capital Humano, Evaluación, Acompañamiento y Formación Continua",
+      "Modelo de Calidad en 3 Dimensiones (Gestión Institucional, Práctica Pedagógica y Resultados del Aprendizaje) y Ruta en 5 Pasos (Diagnóstico, Piloto, Evaluación, PMI y Dashboards)",
+      "Sistema de Vouchers Escolares a la demanda, Escuelas Autónomas, STEM y Salud Integral"
     ],
-    longDescription: "Proponemos una transformación radical de las oportunidades humanas. La Dirección de Educación y Capital Intelectual, integrada en el Plan de Gobierno Municipal, encarna el principio liberal del subsidio a la demanda: el Estado no impone la escuela, sino que entrega a la familia un voucher educativo para que elija entre colegios públicos autónomos o privados. La educación se vuelve trilingüe (Español, Inglés y Código Digital), complementada con comedores escolares concesionados y salud preventiva de primer nivel.",
-    educationImpact: "Eje neurálgico del plan: 14 funcionarios especializados (4 Cargos 99 de confianza y 10 técnicos de carrera) dedicados exclusivamente a la calidad académica, auditoría del voucher, robótica e infraestructura escolar sin burocracia parásita."
+    longDescription: "La Dirección de Educación (Fomento) diseña las políticas públicas educativas del municipio alineadas con el gobierno nacional y el programa «Guaicaipuro Tierra de Gracia». Su estructura se divide en tres grandes unidades: 1) Unidad de Planificación y Presupuesto (con las Oficinas de Coordinación Pedagógica, Programas Sociales, Infraestructura y Servicios, y Capital Humano); 2) Unidad de Control y Supervisión (articulada con el Síndico Procurador e inspectores de convivencia y calendario escolar); y 3) Unidad de Calidad Educativa (de carácter formativo y no punitivo, integrada por las Oficinas de Evaluación y Estadística, Acompañamiento e Innovación, y Formación Continua). Implementa Planes de Mejora Institucional (PMI), Tableros de Control (Dashboards) en tiempo real e Informe Anual de Calidad.",
+    educationImpact: "Eje neurálgico del plan: 14 funcionarios especializados (4 Cargos 99 de dirección de unidades y 10 técnicos de carrera en las 7 oficinas) ejecutando el Diagnóstico Inicial, Plan Piloto (2-3 escuelas), Evaluación General, PMI y subsidio a la demanda (Vouchers)."
   },
   {
     id: 4,
@@ -440,21 +440,21 @@ export const PARISHES: Parish[] = [
 
 export const DIRECTORATES: Directorate[] = [
   {
-    name: "Dirección de Educación y Capital Intelectual (Tierra de Gracia)",
-    objective: "Revolución educativa liberal: Vouchers/cheque escolar, libertad de cátedra, escuelas autónomas, STEM e inglés sin adoctrinamiento.",
+    name: "Dirección de Educación y Capital Intelectual (Fomento)",
+    objective: "Responsable de diseñar las políticas públicas educativas del municipio alineadas con el gobierno nacional y Tierra de Gracia: 3 Unidades Rectoras, 7 Oficinas, Calidad Educativa y Vouchers.",
     actions: [
-      "Vouchers y Cheque Escolar para subsidio a la demanda",
-      "Desideologización total y rigor científico curricular",
-      "Escuelas autónomas cogestionadas con universidades y privados",
-      "Laboratorios de robótica, programación e idiomas (STEM)",
-      "Comedores y mantenimiento escolar 100% concesionados",
-      "Evaluación independiente de rendimiento académico"
+      "Unidad de Planificación y Presupuesto (Coordinación Pedagógica, Programas Sociales, Infraestructura y Capital Humano)",
+      "Unidad de Control y Supervisión articulada con el Síndico Procurador e inspectores escolares",
+      "Unidad de Calidad Educativa (Evaluación y Estadística, Acompañamiento e Innovación, Formación Continua)",
+      "Modelo de Calidad en 3 Dimensiones: Gestión Institucional, Práctica Pedagógica y Resultados del Aprendizaje",
+      "Ruta de 5 pasos: Diagnóstico Inicial, Plan Piloto (2-3 escuelas), Evaluación General, Planes de Mejora (PMI) y Dashboards",
+      "Sistema de Vouchers y Cheque Escolar para subsidio a la demanda"
     ],
     type: "new",
     headcount: 14,
     cargos99: 4,
     carrera: 10,
-    legal: "CRBV Art. 178 num. 6; LOPPM Arts. 88 y 165; LEFP Arts. 20 y 21"
+    legal: "CRBV Art. 178 num. 6; LOPPM Arts. 88 y 165; LEFP Arts. 20 y 21; Decreto/Ordenanza de Calidad Educativa"
   },
   {
     name: "Despacho del Alcalde y Dirección General",

@@ -503,6 +503,46 @@
   <!-- Accordion List of Offices -->
   <div id="officesContainer"></div>
 
+  <!-- Dirección de Educación (Fomento): Sub-estructuras, Modelo de Calidad y Ruta de Implementación -->
+  <div class="legal-section" style="margin-top: 20px; border-top: 3px solid #0284C7;">
+    <div class="legal-title" style="color: #0369A1; border-bottom: 2px solid #0284C7; display: flex; justify-content: space-between; align-items: center;">
+      <span>Propuesta Estructural • Dirección de Educación (Fomento) y Unidad de Calidad Educativa</span>
+      <span style="font-size: 11px; background: #0EA5E9; color: #FFFFFF; padding: 3px 10px; border-radius: 12px; font-weight: 800;">FOMENTO • DESPACHO 07</span>
+    </div>
+    <div style="background: #F0F9FF; border: 1px solid #BAE6FD; border-radius: 6px; padding: 12px 16px; margin-bottom: 14px; font-size: 12px; line-height: 1.5;">
+      <b>Misión Institucional:</b> Responsable de diseñar las políticas públicas educativas del municipio alineadas con el gobierno nacional y el Plan Municipal <b>«Guaicaipuro Tierra de Gracia»</b>.<br>
+      • <b>1. Unidad de Planificación y Presupuesto:</b> Coordina asignación de recursos, proyectos anuales y metas con identidad local y nacional. Agrupa: <i>Oficina de Coordinación Pedagógica y/o Académica</i>, <i>Oficina de Programas Sociales</i>, <i>Oficina de Infraestructura y Servicios</i> (junto a Obras Públicas) y <i>Oficina de Capital Humano</i>.<br>
+      • <b>2. Unidad de Control y Supervisión:</b> Examina y aplica normativas legales escolares, contratos y convenios junto con el <b>Síndico Procurador</b>, instrumentando supervisores escolares para convivencia y calendario escolar.<br>
+      • <b>3. Unidad de Calidad Educativa (Enfoque de acompañamiento y mejora continua, no punitivo):</b> Blindada por <b>Decreto/Ordenanza de creación</b>, <b>Alineación ministerial</b> y <b>Presupuesto asignado</b>. Agrupa: <i>Oficina de Evaluación y Estadística</i>, <i>Oficina de Acompañamiento e Innovación</i> y <i>Oficina de Formación Continua</i>.
+    </div>
+
+    <table class="pos-table" style="margin-bottom: 14px;">
+      <thead>
+        <tr>
+          <th style="width: 30%;">Dimensión del Modelo de Calidad</th>
+          <th>Indicadores Claros y Medibles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>1. Gestión Institucional</b></td>
+          <td>Eficiencia administrativa, liderazgo directivo y clima escolar.</td>
+        </tr>
+        <tr>
+          <td><b>2. Práctica Pedagógica</b></td>
+          <td>Desempeño Docente, uso de la tecnología y actualización curricular.</td>
+        </tr>
+        <tr>
+          <td><b>3. Resultados del Aprendizaje</b></td>
+          <td>Índices de aprobación, deserción escolar y rendimiento en pruebas estandarizadas.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 12px 16px; font-size: 12px;">
+      <b>Ruta de Implementación (Paso a Paso):</b> <code>[Paso 1: Diagnóstico Inicial] ➔ [Paso 2: Plan Piloto (2-3 escuelas)] ➔ [Paso 3: Evaluación General] ➔ [Paso 4: Planes de Mejora Institucional (PMI)] ➔ [Paso 5: Transparencia: Dashboards en tiempo real e Informe Anual de Calidad]</code>
+    </div>
+  </div>
   
   <!-- Security & Civil Protection Population Study Box -->
   <div class="legal-section" style="margin-top: 20px; border-top: 3px solid #16A34A;">
@@ -780,25 +820,26 @@ const officesData = [
   },
   {
     id: 7,
-    name: "Dirección de Educación y Capital Intelectual (Tierra de Gracia)",
-    desc: "Revolución educativa liberal: Vouchers/cheque escolar, libertad de cátedra, escuelas autónomas, STEM e inglés sin adoctrinamiento.",
+    name: "Dirección de Educación y Capital Intelectual (Fomento)",
+    desc: "Responsable de diseñar las políticas públicas educativas del municipio alineadas con el gobierno nacional y el modelo Tierra de Gracia: 3 Unidades Rectoras, 7 Oficinas Operativas, Calidad Educativa y Vouchers.",
     tot: 14,
     c99: 4,
     carr: 10,
     pol: 0,
-    legal: "CRBV Art. 178 num. 6; LOPPM Arts. 88 y 165; LEFP Arts. 20 y 21.",
-    focus: "Subsidio a la demanda, no a la burocracia. El voucher financia al alumno en el colegio elegido por su familia; convenios con universidades y robótica.",
+    legal: "CRBV Art. 178 num. 6; LOPPM Arts. 88 y 165; LEFP Arts. 20 y 21; Ordenanza/Decreto Municipal de Calidad Educativa.",
+    focus: "Integra 3 sub-estructuras estratégicas: Unidad de Planificación y Presupuesto, Unidad de Control y Supervisión (junto al Síndico Procurador) y Unidad de Calidad Educativa (acompañamiento, PMI, Dashboards e Informe Anual).",
     positions: [
-      { name: "Director(a) de Educación y Capital Intelectual", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Lidera la desideologización escolar, libertad de elección y excelencia académica." },
-      { name: "Coordinador(a) del Sistema de Vouchers y Becas", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Administra el cheque escolar 'Tierra de Gracia' asignado directamente a las familias." },
-      { name: "Coordinador(a) de Calidad y Libertad Curricular", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Evaluación objetiva de rendimiento, matemáticas, lectura crítica y ciencias." },
-      { name: "Coordinador(a) de Escuelas Autónomas y Alianzas", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Cogestión de planteles con fundaciones, universidades y colegios privados." },
-      { name: "Supervisores Técnicos de Calidad y Rendimiento", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Auditoría pedagógica y estándares académicos en aulas sin sesgo político." },
-      { name: "Analistas del Voucher Escolar y Matrícula", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Validación biométrica estudiantil y liquidación directa a instituciones educativas." },
-      { name: "Especialistas en Tecnología Educativa, STEM e Inglés", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Despliegue de laboratorios de robótica, programación e idiomas en parroquias." },
-      { name: "Ingeniero Inspector de Infraestructura Escolar", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Fiscalización de contratos de mantenimiento privado de colegios y escuelas." },
-      { name: "Nutricionista / Auditor de Alimentación Escolar Privada", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Control calórico y de higiene del servicio de comedores concesionados." },
-      { name: "Analista de Convenios Institucionales y Pasantías", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Enlace con politécnicos y empresas locales para inserción laboral juvenil." }
+      { name: "Director(a) de Educación Municipal (Fomento)", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Responsable de diseñar las políticas públicas educativas del municipio alineadas con el gobierno nacional y el programa Tierra de Gracia." },
+      { name: "Jefe(a) de la Unidad de Planificación y Presupuesto", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Coordina la asignación de recursos, formula proyectos educativos anuales y evalúa el cumplimiento de metas institucionales con sentido de pertenencia e identidad local y nacional." },
+      { name: "Jefe(a) de la Unidad de Control y Supervisión", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Examina, gestiona y aplica normativas legales escolares, contratos y convenios junto con el Síndico Procurador; instrumenta a los inspectores y supervisores en colegios." },
+      { name: "Jefe(a) de la Unidad de Calidad Educativa", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Unidad estratégica de acompañamiento y mejora continua (no punitiva). Dirige el Diagnóstico Inicial, Plan Piloto, Evaluación General y Planes de Mejora Institucional (PMI)." },
+      { name: "Oficina de Coordinación Pedagógica y/o Académica", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Adscrita a Planificación y articulada con Control y Supervisión: supervisa planes de estudio, formación continua docente y rendimiento escolar en planteles municipales." },
+      { name: "Oficina de Programas Sociales y Vouchers", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Adscrita a Planificación y Presupuesto: formula y administra programas de apoyo estudiantil, cheque escolar, dotación de uniformes y atención psicopedagógica." },
+      { name: "Oficina de Infraestructura y Servicios Escolares", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Planifica conjuntamente con la Unidad de Proyectos y Obras Públicas (Dirección de Infraestructura y Urbanismo) las reparaciones, mantenimiento de plantas físicas e insumos básicos." },
+      { name: "Oficina de Capital Humano Educativo", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Adscrita a Planificación y Presupuesto: gestiona la Nómina de Personal docente, administrativo y obrero, así como los procesos de contratación por mérito y jubilación." },
+      { name: "Oficina de Evaluación y Estadística (Calidad Educativa)", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Adscrita a Calidad Educativa: encargada del diseño de instrumentos (encuestas, rúbricas), procesamiento de datos, Tableros de Control (Dashboards) e Informe Anual de Calidad." },
+      { name: "Oficina de Acompañamiento e Innovación (Calidad Educativa)", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Adscrita a Calidad Educativa: formada por asesores pedagógicos que visitan las escuelas para ayudar a los directores a corregir fallas e implementar los PMI." },
+      { name: "Oficina de Formación Continua (Calidad Educativa)", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Adscrita a Calidad Educativa: diseña talleres y planes de capacitación docente basados en las debilidades detectadas en las evaluaciones institucionales." }
     ]
   },
   {

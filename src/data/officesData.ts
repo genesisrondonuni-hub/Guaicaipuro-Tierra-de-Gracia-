@@ -536,84 +536,91 @@ export const OFFICES_DATA: OfficeDepartment[] = [
   },
   {
     "id": 7,
-    "name": "Dirección de Educación y Capital Intelectual (Tierra de Gracia)",
-    "desc": "Revolución educativa liberal: Vouchers/cheque escolar, libertad de cátedra, escuelas autónomas, STEM e inglés sin adoctrinamiento.",
+    "name": "Dirección de Educación y Capital Intelectual (Fomento)",
+    "desc": "Responsable de diseñar las políticas públicas educativas del municipio alineadas con el gobierno nacional y el modelo Tierra de Gracia: 3 Unidades Rectoras, 7 Oficinas Operativas, Calidad Educativa y Vouchers.",
     "tot": 14,
     "c99": 4,
     "carr": 10,
     "pol": 0,
-    "legal": "CRBV Art. 178 num. 6; LOPPM Arts. 88 y 165; LEFP Arts. 20 y 21.",
-    "focus": "Subsidio a la demanda, no a la burocracia. El voucher financia al alumno en el colegio elegido por su familia; convenios con universidades y robótica.",
+    "legal": "CRBV Art. 178 num. 6; LOPPM Arts. 88 y 165; LEFP Arts. 20 y 21; Ordenanza/Decreto Municipal de Calidad Educativa.",
+    "focus": "Integra 3 sub-estructuras estratégicas: Unidad de Planificación y Presupuesto, Unidad de Control y Supervisión (junto al Síndico Procurador) y Unidad de Calidad Educativa (acompañamiento, PMI, Dashboards e Informe Anual).",
     "positions": [
       {
-        "name": "Director(a) de Educación y Capital Intelectual",
+        "name": "Director(a) de Educación Municipal (Fomento)",
         "type": "c99",
         "count": 1,
         "tag": "Cargo 99 (Alto Nivel)",
-        "desc": "Lidera la desideologización escolar, libertad de elección y excelencia académica."
+        "desc": "Responsable de diseñar las políticas públicas educativas del municipio alineadas con el gobierno nacional y el programa Tierra de Gracia."
       },
       {
-        "name": "Coordinador(a) del Sistema de Vouchers y Becas",
+        "name": "Jefe(a) de la Unidad de Planificación y Presupuesto",
         "type": "c99",
         "count": 1,
         "tag": "Cargo 99 (Confianza)",
-        "desc": "Administra el cheque escolar 'Tierra de Gracia' asignado directamente a las familias."
+        "desc": "Coordina la asignación de recursos, formula proyectos educativos anuales y evalúa el cumplimiento de metas institucionales con sentido de pertenencia e identidad local y nacional."
       },
       {
-        "name": "Coordinador(a) de Calidad y Libertad Curricular",
+        "name": "Jefe(a) de la Unidad de Control y Supervisión",
         "type": "c99",
         "count": 1,
         "tag": "Cargo 99 (Confianza)",
-        "desc": "Evaluación objetiva de rendimiento, matemáticas, lectura crítica y ciencias."
+        "desc": "Examina, gestiona y aplica normativas legales escolares, contratos y convenios junto con el Síndico Procurador; instrumenta a los inspectores y supervisores en colegios."
       },
       {
-        "name": "Coordinador(a) de Escuelas Autónomas y Alianzas",
+        "name": "Jefe(a) de la Unidad de Calidad Educativa",
         "type": "c99",
         "count": 1,
         "tag": "Cargo 99 (Confianza)",
-        "desc": "Cogestión de planteles con fundaciones, universidades y colegios privados."
+        "desc": "Unidad estratégica de acompañamiento y mejora continua (no punitiva). Dirige el Diagnóstico Inicial, Plan Piloto, Evaluación General y Planes de Mejora Institucional (PMI)."
       },
       {
-        "name": "Supervisores Técnicos de Calidad y Rendimiento",
-        "type": "carr",
-        "count": 3,
-        "tag": "Carrera Técnica",
-        "desc": "Auditoría pedagógica y estándares académicos en aulas sin sesgo político."
-      },
-      {
-        "name": "Analistas del Voucher Escolar y Matrícula",
+        "name": "Oficina de Coordinación Pedagógica y/o Académica",
         "type": "carr",
         "count": 2,
         "tag": "Carrera Técnica",
-        "desc": "Validación biométrica estudiantil y liquidación directa a instituciones educativas."
+        "desc": "Adscrita a Planificación y articulada con Control y Supervisión: supervisa planes de estudio, formación continua docente y rendimiento escolar en planteles municipales."
       },
       {
-        "name": "Especialistas en Tecnología Educativa, STEM e Inglés",
+        "name": "Oficina de Programas Sociales y Vouchers",
         "type": "carr",
         "count": 2,
         "tag": "Carrera Técnica",
-        "desc": "Despliegue de laboratorios de robótica, programación e idiomas en parroquias."
+        "desc": "Adscrita a Planificación y Presupuesto: formula y administra programas de apoyo estudiantil, cheque escolar, dotación de uniformes y atención psicopedagógica."
       },
       {
-        "name": "Ingeniero Inspector de Infraestructura Escolar",
+        "name": "Oficina de Infraestructura y Servicios Escolares",
         "type": "carr",
         "count": 1,
         "tag": "Carrera Técnica",
-        "desc": "Fiscalización de contratos de mantenimiento privado de colegios y escuelas."
+        "desc": "Planifica conjuntamente con la Unidad de Proyectos y Obras Públicas (Dirección de Infraestructura y Urbanismo) las reparaciones, mantenimiento de plantas físicas e insumos básicos."
       },
       {
-        "name": "Nutricionista / Auditor de Alimentación Escolar Privada",
+        "name": "Oficina de Capital Humano Educativo",
         "type": "carr",
         "count": 1,
         "tag": "Carrera Técnica",
-        "desc": "Control calórico y de higiene del servicio de comedores concesionados."
+        "desc": "Adscrita a Planificación y Presupuesto: gestiona la Nómina de Personal docente, administrativo y obrero, así como los procesos de contratación por mérito y jubilación."
       },
       {
-        "name": "Analista de Convenios Institucionales y Pasantías",
+        "name": "Oficina de Evaluación y Estadística (Calidad Educativa)",
+        "type": "carr",
+        "count": 2,
+        "tag": "Carrera Técnica",
+        "desc": "Adscrita a Calidad Educativa: encargada del diseño de instrumentos (encuestas, rúbricas), procesamiento de datos, Tableros de Control (Dashboards) e Informe Anual de Calidad."
+      },
+      {
+        "name": "Oficina de Acompañamiento e Innovación (Calidad Educativa)",
         "type": "carr",
         "count": 1,
         "tag": "Carrera Técnica",
-        "desc": "Enlace con politécnicos y empresas locales para inserción laboral juvenil."
+        "desc": "Adscrita a Calidad Educativa: formada por asesores pedagógicos que visitan las escuelas para ayudar a los directores a corregir fallas e implementar los PMI."
+      },
+      {
+        "name": "Oficina de Formación Continua (Calidad Educativa)",
+        "type": "carr",
+        "count": 1,
+        "tag": "Carrera Técnica",
+        "desc": "Adscrita a Calidad Educativa: diseña talleres y planes de capacitación docente basados en las debilidades detectadas en las evaluaciones institucionales."
       }
     ],
     "isEducation": true

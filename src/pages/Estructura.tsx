@@ -292,6 +292,11 @@ export default function Estructura() {
             </div>
           </div>
 
+          {/* Propuesta Detallada: Sub-estructura y Organigrama de la Dirección de Educación (Fomento) */}
+          <div id="propuesta-educacion" className="pt-6 scroll-mt-24">
+            <EducationStructureProposal />
+          </div>
+
         </div>
       </section>
 
