@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Paleta de Colores Oficial Extraída de Vente Venezuela */
+  --color-primary: #00DED1;      /* Turquesa brillante - Botones y acentos */
+  --color-secondary: #1DA5D2;    /* Azul cian - Detalles */
+  --color-link: #3555FF;         /* Azul - Enlaces de texto */
+  --color-text: #676767;         /* Gris oscuro - Párrafos y textos base */
+  --color-heading: #222222;      /* Casi negro - Títulos */
+  --color-bg-light: #FFFFFF;     /* Blanco - Fondo principal */
+  --color-bg-soft: #F8F8F8;      /* Gris muy claro - Secciones alternas */
+  --color-border: #EAEAEA;       /* Gris para bordes y separadores */
+
+  /* Tipografía (Google Fonts) */
+  --font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  
+  /* Layout y Estilos */
+  --container-width: 1300px;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
+}
+
+@theme {
+  --font-sans: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-family);
+    color: var(--color-text);
+    background-color: var(--color-bg-light);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-heading);
+    font-family: var(--font-family);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 54px);
+  }
+
+  h2 {
+    font-size: clamp(24px, 3.5vw, 34px);
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   CLASES DE COMPONENTES ESPECÍFICOS (VENTE VENEZUELA)
+   ═══════════════════════════════════════════════════ */
+
+.vente-container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Header / Navbar */
+.vente-navbar {
+  background-color: var(--color-bg-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+}
+
+.vente-nav-link {
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vente-nav-link:hover,
+.vente-nav-link.active {
+  color: var(--color-primary);
+}
+
+.vente-nav-link.active {
+  background-color: rgba(0, 222, 209, 0.08);
+  font-weight: 700;
+}
+
+/* Botones Primarios (CTA) */
+.btn-vente-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  padding: 16px 32px;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-vente-primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 6px 20px rgba(0, 222, 209, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Botones Secundarios */
+.btn-vente-secondary {
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 16px 32px;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-vente-secondary:hover {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(0, 222, 209, 0.25);
+}
+
+/* Tarjetas (Cards) */
+.vente-card {
+  background-color: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 24px;
+  transition: var(--transition);
+}
+
+.vente-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-primary);
+}
+
+/* Secciones alternas con espaciado vertical de 80px */
+.vente-section-light {
+  background-color: var(--color-bg-light);
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.vente-section-soft {
+  background-color: var(--color-bg-soft);
+  padding-top: 80px;
+  padding-bottom: 80px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Enlaces de texto */
+.vente-link {
+  color: var(--color-link);
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.vente-link:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+/* Footer */
+.vente-footer {
+  background-color: #222222;
+  color: #FFFFFF;
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+
+.vente-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.vente-footer a:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}

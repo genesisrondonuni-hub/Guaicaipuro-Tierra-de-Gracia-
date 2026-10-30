@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#003366">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Organigrama">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<title>Organigrama Interactivo con Desplegables • Alcaldía de Guaicaipuro (Tierra de Gracia)</title>
+<style>
+  :root {
+    --primary: #003366;
+    --primary-light: #0B2545;
+    --accent: #29ABE2;
+    --accent-hover: #1A8CBF;
+    --bg-light: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    --border-color: #E2E8F0;
+    --c99-bg: #FEF3C7;
+    --c99-text: #92400E;
+    --c99-border: #F59E0B;
+    --carr-bg: #E0F2FE;
+    --carr-text: #0369A1;
+    --pol-bg: #DCFCE7;
+    --pol-text: #166534;
+    --edu-bg: #F3E8FF;
+    --edu-text: #6B21A8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #F1F5F9;
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 20px;
+  }
+  .container {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  /* Header */
+  .header-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    padding: 24px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 51, 102, 0.25);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .header-left h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .header-left p {
+    font-size: 13px;
+    color: #E0F2FE;
+    margin-top: 4px;
+  }
+  .header-badge {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-align: right;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* KPI Grid */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .kpi-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+  }
+  .kpi-val {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  .kpi-val.accent { color: var(--accent); }
+  .kpi-val.green { color: #16A34A; }
+  .kpi-val.purple { color: #7C3AED; }
+  .kpi-lbl {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .kpi-sub {
+    font-size: 10px;
+    color: #94A3B8;
+    margin-top: 2px;
+  }
+
+  /* Controls & Search */
+  .controls-bar {
+    background: var(--card-bg);
+    padding: 16px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .search-box {
+    flex: 1;
+    min-width: 260px;
+    position: relative;
+  }
+  .search-box input {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box input:focus {
+    border-color: var(--accent);
+  }
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94A3B8;
+    font-size: 14px;
+  }
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill-btn {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: #F8FAFC;
+    color: var(--text-main);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pill-btn:hover {
+    background: #E2E8F0;
+  }
+  .pill-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  .action-btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--primary);
+  }
+  .action-btn:hover { background: #F1F5F9; }
+
+  /* Tree & Accordion */
+  .office-section {
+    margin-bottom: 16px;
+  }
+  .accordion-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: box-shadow 0.2s;
+  }
+  .accordion-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .accordion-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: #FFFFFF;
+    user-select: none;
+    border-left: 5px solid var(--primary);
+  }
+  .accordion-header:hover {
+    background: #F8FAFC;
+  }
+  .accordion-header.active {
+    background: #F0F9FF;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .office-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .office-num {
+    background: var(--primary);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .office-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .office-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+  .office-badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-c99 {
+    background: var(--c99-bg);
+    color: var(--c99-text);
+    border: 1px solid var(--c99-border);
+  }
+  .badge-carr {
+    background: var(--carr-bg);
+    color: var(--carr-text);
+  }
+  .badge-pol {
+    background: var(--pol-bg);
+    color: var(--pol-text);
+  }
+  .badge-tot {
+    background: #F1F5F9;
+    color: #475569;
+    border: 1px solid #CBD5E1;
+  }
+  .chevron {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s;
+    margin-left: 8px;
+    color: var(--text-muted);
+  }
+  .accordion-header.active .chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Accordion Body */
+  .accordion-body {
+    display: none;
+    padding: 20px;
+    background: #FFFFFF;
+  }
+  .accordion-body.open {
+    display: block;
+  }
+  .body-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 16px;
+    background: #F8FAFC;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+  @media(max-width: 768px) {
+    .body-meta-grid { grid-template-columns: 1fr; }
+  }
+  .meta-block h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .meta-block p {
+    font-size: 11.5px;
+    color: var(--text-main);
+  }
+
+  /* Position Table inside Accordion */
+  .pos-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .pos-table th {
+    background: #F1F5F9;
+    color: #475569;
+    font-weight: 700;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border-color);
+  }
+  .pos-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+  }
+  .pos-table tr:hover {
+    background: #F8FAFC;
+  }
+  .tag-c99 {
+    background: #FEF3C7;
+    color: #B45309;
+    font-weight: 700;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #F59E0B;
+    display: inline-block;
+  }
+  .tag-carr {
+    background: #E0F2FE;
+    color: #0369A1;
+    font-weight: 600;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .tag-pol {
+    background: #DCFCE7;
+    color: #15803D;
+    font-weight: 600;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  /* Legal Accordion Bottom */
+  .legal-section {
+    margin-top: 30px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    padding: 20px;
+  }
+  .legal-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 6px;
+  }
+  .legal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .legal-box {
+    background: #F8FAFC;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .legal-box h5 {
+    font-size: 12.5px;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+  .legal-box p {
+    font-size: 11px;
+    color: #475569;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header-card">
+    <div class="header-left">
+      <h1>Organigrama Interactivo • Alcaldía de Guaicaipuro</h1>
+      <p>Estructura Liberal de Gobierno «Tierra de Gracia» • Despliegue de Oficinas, Educación, Métricas y Cargos 99 (LEFP/LOPPM)</p>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+      <div class="header-badge">
+        MODELO MUNICIPAL LIBERAL<br>
+        CORTE OFICIAL: 2026
+      </div>
+      <button id="pwaInstallBtn" style="background: #F59E0B; color: #1E293B; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 11px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2);" onclick="installPWA()">
+        📲 Instalar App en Android / PC
+      </button>
+    </div>
+  </div>
+
+  <!-- KPI Grid -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-val accent" id="kpi-total">367 (+1)</div>
+      <div class="kpi-lbl">Total Empleados (+Alcalde)</div>
+      <div class="kpi-sub">Estado Subsidiario Esbelto</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" id="kpi-c99">47</div>
+      <div class="kpi-lbl">Cargos 99 (Confianza)</div>
+      <div class="kpi-sub">12,8% Dirección Política</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" id="kpi-carr">112</div>
+      <div class="kpi-lbl">Carrera Administrativa</div>
+      <div class="kpi-sub">30,5% Técnicos y Profesionales</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val green" id="kpi-pol">208</div>
+      <div class="kpi-lbl">Seguridad y Rescate</div>
+      <div class="kpi-sub">56,7% POLIGUAICAIPURO + PC</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val purple">Vouchers</div>
+      <div class="kpi-lbl">Educación Tierra de Gracia</div>
+      <div class="kpi-sub">Subsidio a la Demanda Escolar</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val green">0 Obreros</div>
+      <div class="kpi-lbl">Nómina Obrera Directa</div>
+      <div class="kpi-sub">100% Tercerizado / Concesión</div>
+    </div>
+  </div>
+
+  <!-- Search & Controls Bar -->
+  <div class="controls-bar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Buscar por cargo, oficina, persona o palabra clave..." oninput="handleSearch()">
+    </div>
+    <div class="filter-pills">
+      <button class="pill-btn active" onclick="setFilter('all')">Todos (367)</button>
+      <button class="pill-btn" onclick="setFilter('c99')">Solo Cargos 99 (47)</button>
+      <button class="pill-btn" onclick="setFilter('carr')">Carrera Técnica (112)</button>
+      <button class="pill-btn" onclick="setFilter('pol')">Seguridad / PC (208)</button>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <button class="action-btn" onclick="toggleAll(true)">Desplegar Todo</button>
+      <button class="action-btn" onclick="toggleAll(false)">Colapsar Todo</button>
+    </div>
+  </div>
+
+  <!-- Accordion List of Offices -->
+  <div id="officesContainer"></div>
+
+  
+  <!-- Security & Civil Protection Population Study Box -->
+  <div class="legal-section" style="margin-top: 20px; border-top: 3px solid #16A34A;">
+    <div class="legal-title" style="color: #166534; border-bottom: 2px solid #16A34A; display: flex; justify-content: space-between; align-items: center;">
+      <span>Estudio Técnico-Legal: Pie de Fuerza Policial y Protección Civil por Población</span>
+      <span style="font-size: 11px; background: #DCFCE7; color: #166534; padding: 2px 8px; border-radius: 4px;">404.995 Habitantes • 661 km²</span>
+    </div>
+    <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px; line-height: 1.4;">
+      <b>Estándares Legales Venezolanos Aplicados:</b><br>
+      • <b>Cuerpo Policial (LOSPCPNB / LEFPOL & Estándares CGP / VISIPOL):</b> La norma técnica nacional fija entre <b>3,5 y 4,0 policías por cada 1.000 habitantes</b> en concurrencia con los cuerpos estadales (Polimiranda) y nacionales (PNB). Para el componente preventivo y comunitario municipal, POLIGUAICAIPURO despliega en <b>Fase 1 un pie de fuerza de 202 oficiales uniformados</b> (~0,50 por 1.000 hab.), garantizando patrullaje por cuadrantes y erradicando el error previo del reparto lineal.<br>
+      • <b>Protección Civil y Administración de Desastres (G.O. N° 5.557 Ext.):</b> En un municipio de topografía montañosa con alta vulnerabilidad hidro-meteorológica y geológica (cuenca del Río San Pedro y fallas de montaña), la ley exige <b>personal de rescate y evaluación permanente en guardias rotativas de 24x48</b>: 1 Jefe de División (Cargo 99) + 14 funcionarios técnicos paramédicos y socorristas permanentes.
+    </div>
+    
+    <table class="pos-table" style="margin-bottom: 12px;">
+      <thead>
+        <tr>
+          <th>Parroquia</th>
+          <th style="text-align: right;">Población Real</th>
+          <th style="text-align: center;">% Pob.</th>
+          <th style="text-align: center;">Falla Previa MOF</th>
+          <th style="text-align: center;">POLIGUAICAIPURO (Fase 1 = 175)</th>
+          <th>Protección Civil y Gestión de Riesgos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>1. Los Teques</b> (Capital / 13 Zonas)</td>
+          <td style="text-align: right;">332.725 hab.</td>
+          <td style="text-align: center;">82,2%</td>
+          <td style="text-align: center; color: #DC2626;">25 (Desprotegida)</td>
+          <td style="text-align: center; font-weight: bold; color: #166534;">112 (92 Patrullaje + 20 Comunitaria)</td>
+          <td><b>8 Paramédicos y Rescatistas:</b> Base Central C3A y monitoreo de quebradas Río San Pedro.</td>
+        </tr>
+        <tr>
+          <td><b>2. Cecilio Acosta</b> (San Diego/San José)</td>
+          <td style="text-align: right;">28.350 hab.</td>
+          <td style="text-align: center;">7,0%</td>
+          <td style="text-align: center;">25 (Inercial)</td>
+          <td style="text-align: center; font-weight: bold;">18 (14 Patrullaje + 4 Comunitaria)</td>
+          <td><b>1 Unidad Móvil / Paramédico:</b> Enlace vial San Diego - Cortada del Guayabo.</td>
+        </tr>
+        <tr>
+          <td><b>3. Paracotos</b> (Eje ARC / La Cumaca)</td>
+          <td style="text-align: right;">16.449 hab.</td>
+          <td style="text-align: center;">4,1%</td>
+          <td style="text-align: center;">25 (Inercial)</td>
+          <td style="text-align: center; font-weight: bold;">15 (12 Patrullaje + 3 Comunitaria)</td>
+          <td><b>2 Rescatistas / Paramédicos:</b> Atención de emergencias viales en la Autopista Regional del Centro.</td>
+        </tr>
+        <tr>
+          <td><b>4. San Pedro de los Altos</b></td>
+          <td style="text-align: right;">15.669 hab.</td>
+          <td style="text-align: center;">3,9%</td>
+          <td style="text-align: center;">25 (Inercial)</td>
+          <td style="text-align: center; font-weight: bold;">12 (9 Patrullaje + 3 Comunitaria)</td>
+          <td><b>1 Rescatista de Montaña:</b> Cobertura en Pozo de Rosas, Garabato y cuenca alta.</td>
+        </tr>
+        <tr>
+          <td><b>5. Tácata</b> (Eje Rural Sur)</td>
+          <td style="text-align: right;">4.513 hab.</td>
+          <td style="text-align: center;">1,1%</td>
+          <td style="text-align: center;">25 (Sobredotada)</td>
+          <td style="text-align: center; font-weight: bold;">6 (4 Patrullaje + 2 Comunitaria)</td>
+          <td><b>1 Evaluador de Riesgos:</b> Monitoreo de crecidas del Río Tuy y vías agrícolas.</td>
+        </tr>
+        <tr>
+          <td><b>6. Altagracia de la Montaña</b></td>
+          <td style="text-align: right;">3.874 hab.</td>
+          <td style="text-align: center;">1,0%</td>
+          <td style="text-align: center;">25 (Sobredotada)</td>
+          <td style="text-align: center; font-weight: bold;">6 (4 Patrullaje + 2 Comunitaria)</td>
+          <td><b>1 Rescatista Rural:</b> Mitigación de incendios forestales y caminos rurales.</td>
+        </tr>
+        <tr>
+          <td><b>7. El Jarillo</b> (Eje Agroturístico)</td>
+          <td style="text-align: right;">3.415 hab.</td>
+          <td style="text-align: center;">0,8%</td>
+          <td style="text-align: center;">25 (Sobredotada)</td>
+          <td style="text-align: center; font-weight: bold;">6 (5 Patrullaje + 1 Comunitaria)</td>
+          <td><b>1 Rescatista y Ambulancia Rural:</b> Emergencias en carretera Agua Fría y parapente.</td>
+        </tr>
+        <tr style="background: #DCFCE7; font-weight: bold;">
+          <td>TOTAL PARROQUIAL DESPLEGADO</td>
+          <td style="text-align: right;">404.995 hab.</td>
+          <td style="text-align: center;">100%</td>
+          <td style="text-align: center;">175</td>
+          <td style="text-align: center;">175 Oficiales en Calle (7 Estaciones)</td>
+          <td>15 Funcionarios de Protección Civil (1 Jefe + 14 Técnicos)</td>
+        </tr>
+        <tr>
+          <td colspan="4"><b>Comando Central, Academia Policial, Asuntos Internos, Sala C3A e Investigaciones</b></td>
+          <td style="text-align: center; font-weight: bold;">27 Oficiales Centralizados</td>
+          <td>Integración de PC a la Sala Situacional 24/7 y Botón de Alerta Vecinal.</td>
+        </tr>
+        <tr style="background: #E0F2FE; font-weight: bold;">
+          <td colspan="4">TOTAL GENERAL DE SEGURIDAD CIUDADANA Y PROTECCIÓN CIVIL</td>
+          <td colspan="2" style="text-align: center;">202 Efectivos Policiales + 6 Autoridades Civiles (C-99) + 14 Protección Civil = 208 Funcionarios</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<!-- Legal Framework Box -->
+  <div class="legal-section">
+    <div class="legal-title">Fundamentación en la Legislación Venezolana y Doctrina Tierra de Gracia</div>
+    <div class="legal-grid">
+      <div class="legal-box">
+        <h5>Constitución de la República (CRBV)</h5>
+        <p><b>Art. 141, 146, 168 y 178 (num. 6):</b> Autonomía municipal; competencias en preescolar, bibliotecas, salubridad y apoyo a la educación; principio de mérito para la carrera funcionarial.</p>
+      </div>
+      <div class="legal-box">
+        <h5>Doctrina Educativa «Tierra de Gracia»</h5>
+        <p><b>Libertad Escolar y Subsidio a la Demanda:</b> Desideologización total; entrega de cheques/vouchers escolares a las familias para que elijan libremente el colegio de sus hijos; escuelas autónomas y robótica/STEM.</p>
+      </div>
+      <div class="legal-box">
+        <h5>Ley del Estatuto de la Función Pública (LEFP)</h5>
+        <p><b>Arts. 19, 20 y 21 («Cargos 99»):</b> Clasificación taxativa de Cargos de Alto Nivel (Art. 20) y Cargos de Confianza (Art. 21). Libre nombramiento y remoción sin inamovilidad laboral.</p>
+      </div>
+      <div class="legal-box">
+        <h5>Ley Orgánica del Poder Público Municipal (LOPPM)</h5>
+        <p><b>Arts. 88, 115-121, 152, 163-170:</b> Potestad del Alcalde para nombrar directores de educación y gabinete; facultad de celebrar convenios de cogestión educativa con fundaciones y sector privado.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p><b>Plan de Gobierno Municipal «Guaicaipuro Tierra de Gracia»</b> • Vente Venezuela Municipio Guaicaipuro • Octubre 2026</p>
+  </footer>
+</div>
+
+<script>
+const officesData = [
+  {
+    id: 1,
+    name: "Despacho del Alcalde y Dirección General",
+    desc: "Círculo de confianza, planificación estratégica, gobierno electrónico (CTO), APPs y transparencia.",
+    tot: 20,
+    c99: 7,
+    carr: 13,
+    pol: 0,
+    legal: "CRBV Arts. 141 y 168; LOPPM Art. 88; LEFP Arts. 20 y 21.",
+    focus: "Cerebro reformista sin burocracia parásita. Concentra E-Gov (CTO), estructuración de APPs privadas y Transparencia en datos abiertos.",
+    positions: [
+      { name: "Alcalde del Municipio", type: "Electo", count: 1, tag: "Autoridad Electa", desc: "Máxima autoridad ejecutiva municipal." },
+      { name: "Director(a) General del Despacho", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Jefe de Gabinete; articula todas las direcciones y asegura ejecución del plan." },
+      { name: "Consultor(a) Jurídico(a) del Despacho", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Asesor legal directo del Alcalde en decretos, resoluciones y proyectos de ordenanzas." },
+      { name: "Coordinador(a) de Gobierno Electrónico (CTO)", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Líder tecnológico del municipio; digitalización total de trámites (E-Gov)." },
+      { name: "Coordinador(a) de la Unidad de APPs", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Estructuración financiera y legal de alianzas público-privadas e inversiones." },
+      { name: "Coordinador(a) de Transparencia y Datos Abiertos", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Caja de cristal; publicación de cuentas, contratos y compras en tiempo real." },
+      { name: "Director(a) de Comunicación Estratégica", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Narrativa, vocería y combate de desinformación institucional." },
+      { name: "Asistente Ejecutivo del Alcalde", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Agenda confidencial, relaciones protocolares y logística de despacho." },
+      { name: "Analistas de Proyectos y KPIs", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Seguimiento cuantitativo de metas y cumplimiento por dirección." },
+      { name: "Especialista en Atención Ciudadana de Alto Nivel", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Gestión expedita de casos comunitarios críticos." },
+      { name: "Desarrolladores Full-Stack / Sistemas E-Gov", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Programación de ventanillas digitales, APIs y seguridad informática." },
+      { name: "Analistas Financieros y Legales de APPs", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Evaluación de rentabilidad y matrices de riesgo de concesiones." },
+      { name: "Analista de Transparencia y Anticorrupción", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Auditoría preventiva de datos abiertos y contrataciones." },
+      { name: "Jefe de Prensa y Medios", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Relaciones públicas con periodistas y ruedas de prensa." },
+      { name: "Especialistas en Contenido Digital", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Producción audiovisual, redes sociales e infografía municipal." },
+      { name: "Abogado Asistente de Consultoría", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Sustanciación de expedientes legales y análisis comparado." }
+    ]
+  },
+  {
+    id: 2,
+    name: "Dirección de Administración y Finanzas (Hacienda Municipal)",
+    desc: "Superintendencia Tributaria (STM), presupuesto base cero, contabilidad transparente y compras limpias.",
+    tot: 19,
+    c99: 4,
+    carr: 15,
+    pol: 0,
+    legal: "LOPPM Arts. 88, 151 y 152; LOAFSP Arts. 10 a 25; Ley de Contrataciones Públicas.",
+    focus: "Elimina las alcabalas extorsivas. La STM simplifica impuestos a cambio de base ampliada; compras por licitación pública en línea.",
+    positions: [
+      { name: "Director(a) de Administración y Finanzas", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Custodio de las finanzas municipales, tesorería y disciplina fiscal." },
+      { name: "Superintendente Tributario Municipal (STM)", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Recaudación ágil, simplificación tributaria e incentivos pro-inversión." },
+      { name: "Coordinador(a) de Presupuesto", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Formulación de presupuesto base cero sin déficit ni deuda." },
+      { name: "Coordinador(a) de Compras y Licitaciones", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Licitaciones públicas en portal web sin intermediarios." },
+      { name: "Contador Jefe Municipal", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Cierre contable conforme a normas de Contraloría General." },
+      { name: "Analistas de Presupuesto", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Ejecución presupuestaria por proyectos y partidas." },
+      { name: "Analistas de Contabilidad Pública", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Conciliaciones bancarias y libros de contabilidad fiscal." },
+      { name: "Analistas de Compras y Contrataciones", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Sustanciación de pliegos técnicos y registro de proveedores." },
+      { name: "Analistas de Recaudación y Liquidación STM", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Atención tributaria digital y liquidación de tasas justas." },
+      { name: "Inspectores de Fiscalización Tributaria STM", type: "carr", count: 4, tag: "Carrera Técnica", desc: "Fiscalización pedagógica en campo para combatir la evasión." }
+    ]
+  },
+  {
+    id: 3,
+    name: "Dirección de Seguridad Ciudadana y Policía (POLIGUAICAIPURO)",
+    desc: "Cuerpo policial cívico y profesional (202 efectivos) + División de Protección Civil y Riesgos (14 técnicos).",
+    tot: 218,
+    c99: 6,
+    carr: 4,
+    pol: 208,
+    legal: "CRBV Art. 178 num. 4; LEFPOL Arts. 14, 15, 30, 36; Ley de Coordinación de Seguridad Ciudadana.",
+    focus: "Supera el error de 20 policías lineales por parroquia. Concentra 112 efectivos en Los Teques (82% pob.) y despliega policía comunitaria.",
+    positions: [
+      { name: "Director(a) Civil de Seguridad Ciudadana", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Autoridad política civil de seguridad y convivencia vecinal." },
+      { name: "Director(a) del Instituto Autónomo de Policía", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Comandante general de POLIGUAICAIPURO según LEFPOL." },
+      { name: "Subdirector / Jefe de Operaciones Policiales", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Dirección táctica del patrullaje en calle y cuadrantes." },
+      { name: "Jefe de Asuntos Internos e Inspectoría", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Depuración policial implacable y régimen disciplinario." },
+      { name: "Director(a) de la Academia de Policía", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Formación de nuevos cuadros policiales bajo doctrina cívica." },
+      { name: "Jefe de Protección Civil y Mitigación", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Gestión de riesgos en zonas de montaña, fallas y lluvias." },
+      { name: "Jefes de Estación Parroquial (7 Parroquias)", type: "pol", count: 7, tag: "Régimen LEFPOL", desc: "Comandantes locales en las 7 parroquias del municipio." },
+      { name: "Oficiales de Operaciones en Calle", type: "pol", count: 140, tag: "Régimen LEFPOL", desc: "Patrullaje motorizado y vehicular en cuadrantes (92 en Los Teques)." },
+      { name: "Oficiales de Policía Comunitaria", type: "pol", count: 35, tag: "Régimen LEFPOL", desc: "Policía vecinal y de proximidad en articulación con Colegios." },
+      { name: "Operadores de Sala Situacional y Videovigilancia C3A", type: "pol", count: 6, tag: "Régimen LEFPOL", desc: "Monitoreo 24/7 de cámaras de seguridad y botón de auxilio." },
+      { name: "Instructores de Academia de Policía", type: "pol", count: 4, tag: "Régimen LEFPOL", desc: "Capacitación en tiro táctico, derechos humanos y leyes." },
+      { name: "Investigadores de Asuntos Internos", type: "pol", count: 2, tag: "Régimen LEFPOL", desc: "Auditorías de conducta y expedientes sancionatorios." },
+      { name: "Técnicos y Socorristas de Protección Civil", type: "pol", count: 14, tag: "Personal PC", desc: "Rescate, evaluación de riesgos de deslizamiento y emergencias." },
+      { name: "Analistas Criminólogos y Jurídicos Civiles", type: "carr", count: 4, tag: "Carrera Técnica", desc: "Mapeo de calor del delito y sustanciación procesal." }
+    ]
+  },
+  {
+    id: 4,
+    name: "Dirección de Servicios Públicos y Concesiones (Ente Regulador)",
+    desc: "Cero obreros directos. Fiscalización estricta de concesionarios privados mediante la App «Ojo del Ciudadano».",
+    tot: 18,
+    c99: 4,
+    carr: 14,
+    pol: 0,
+    legal: "LOPPM Arts. 163 a 170 (Concesiones y contratos de gestión de servicios públicos).",
+    focus: "La Alcaldía no compra camiones de basura ni gasta en talleres: licita el servicio y fiscaliza calidad con 10 inspectores en campo.",
+    positions: [
+      { name: "Director(a) de Servicios Públicos", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Ente rector de regulación y supervisión de servicios públicos." },
+      { name: "Coordinador(a) de Fiscalización «Ojo Ciudadano»", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Dirección de los 10 inspectores en calle y enlace con vecinos." },
+      { name: "Coordinador(a) de Planificación y Tarifas", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Estudios de costos y regulación tarifaria justa sin subsidios ciegos." },
+      { name: "Coordinador(a) de Contratos de Concesión", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Seguimiento legal y contractual de empresas operadoras de aseo y luz." },
+      { name: "Inspectores Técnicos en Calle", type: "carr", count: 10, tag: "Carrera Técnica", desc: "Auditoría en calle de aseo y alumbrado (4 en Los Teques + 1 por parroquia foránea)." },
+      { name: "Analistas de Regulación y Normativa", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Control de estándares de calidad ambiental y agua." },
+      { name: "Analistas de Supervisión de Contratos", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Control de pagos condicionado a metas de satisfacción vecinal." }
+    ]
+  },
+  {
+    id: 5,
+    name: "Dirección de Infraestructura, Urbanismo y Catastro",
+    desc: "Planificación urbana (PDUL), Ventanilla Única de Permisos en 48h, y Catastro GPS con titulación de tierras.",
+    tot: 20,
+    c99: 4,
+    carr: 16,
+    pol: 0,
+    legal: "CRBV Art. 178 num. 1; LOPPM Art. 88; LGCCN Arts. 23-28; Ley Orgánica de Ordenación Urbanística.",
+    focus: "Seguridad jurídica sobre la propiedad. Integra Catastro Municipal GPS para titular masivamente a los habitantes de barrios y caseríos.",
+    positions: [
+      { name: "Director(a) de Infraestructura y Urbanismo", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Lidera el desarrollo territorial, obras y ordenación urbana." },
+      { name: "Coordinador(a) de Planificación Urbana (PDUL)", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Actualización del Plan de Desarrollo Urbano Local y zonificación." },
+      { name: "Coordinador(a) de la Ventanilla Única de Permisología", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Aprobación de proyectos y permisos comerciales en 48 horas." },
+      { name: "Coordinador(a) de Catastro y Titulación Inmobiliaria", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Levantamiento catastral GPS y regularización masiva de tierras." },
+      { name: "Ingenieros y Arquitectos Revisores de Proyectos", type: "carr", count: 4, tag: "Carrera Técnica", desc: "Revisión técnica de memorias de cálculo y planos constructivos." },
+      { name: "Ingenieros Inspectores de Obras Públicas", type: "carr", count: 4, tag: "Carrera Técnica", desc: "Fiscalización de calidad y avance físico de contratos de vialidad." },
+      { name: "Especialistas en Sistemas GIS y Cartografía", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Modelado territorial digital y mapas satelitales del municipio." },
+      { name: "Peritos y Técnicos de Levantamiento Catastral GPS", type: "carr", count: 4, tag: "Carrera Técnica", desc: "Brigadas de campo para linderos y avalúos de inmuebles." },
+      { name: "Analista Jurídico de Tierras y Regularización", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Sustanciación legal de títulos de propiedad privada plena." }
+    ]
+  },
+  {
+    id: 6,
+    name: "Dirección de Desarrollo Social y Capital Humano (Agencia de Oportunidades)",
+    desc: "Sustituye el clientelismo por empleabilidad, capacitación técnica, alianzas con ONGs y Consejo de Protección (CPNNA).",
+    tot: 18,
+    c99: 4,
+    carr: 14,
+    pol: 0,
+    legal: "CRBV Art. 178 num. 6; LOPPM Art. 88; LOPNNA Arts. 158-164.",
+    focus: "Rompe el chantaje de las cajas CLAP. Conecta a los sectores vulnerables con formación laboral privada y garantiza guardia 24/7 de CPNNA.",
+    positions: [
+      { name: "Director(a) de Desarrollo Social", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Transformación del gasto social en inversión en capital humano." },
+      { name: "Coordinador(a) de Capital Humano y Empleo", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Plataforma de empleo, bolsa de trabajo y pasantías técnicas." },
+      { name: "Coordinador(a) de Alianzas con Sociedad Civil y ONGs", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Articulación de programas comunitarios con iglesias y fundaciones." },
+      { name: "Presidente(a) del CMDNNA", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Políticas públicas municipales de protección de la niñez." },
+      { name: "Consejeros de Protección de Niños y Adolescentes (CPNNA)", type: "carr", count: 3, tag: "Carrera / LOPNNA", desc: "Guardia continua 24/7 y medidas de protección de menores." },
+      { name: "Trabajadores Sociales de Campo", type: "carr", count: 4, tag: "Carrera Técnica", desc: "Evaluación técnica de vulnerabilidad extrema sin sesgo político." },
+      { name: "Promotores de Formación y Emprendimiento", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Talleres de oficios, microempresas y alfabetización digital." },
+      { name: "Analistas de Vinculación Social con ONGs", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Seguimiento a convenios de comedores y asistencia médica." },
+      { name: "Asistentes de Programas de Nutrición y Salud Focalizada", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Atención prioritaria a madres lactantes y adultos mayores." }
+    ]
+  },
+  {
+    id: 7,
+    name: "Dirección de Educación y Capital Intelectual (Tierra de Gracia)",
+    desc: "Revolución educativa liberal: Vouchers/cheque escolar, libertad de cátedra, escuelas autónomas, STEM e inglés sin adoctrinamiento.",
+    tot: 14,
+    c99: 4,
+    carr: 10,
+    pol: 0,
+    legal: "CRBV Art. 178 num. 6; LOPPM Arts. 88 y 165; LEFP Arts. 20 y 21.",
+    focus: "Subsidio a la demanda, no a la burocracia. El voucher financia al alumno en el colegio elegido por su familia; convenios con universidades y robótica.",
+    positions: [
+      { name: "Director(a) de Educación y Capital Intelectual", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Lidera la desideologización escolar, libertad de elección y excelencia académica." },
+      { name: "Coordinador(a) del Sistema de Vouchers y Becas", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Administra el cheque escolar 'Tierra de Gracia' asignado directamente a las familias." },
+      { name: "Coordinador(a) de Calidad y Libertad Curricular", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Evaluación objetiva de rendimiento, matemáticas, lectura crítica y ciencias." },
+      { name: "Coordinador(a) de Escuelas Autónomas y Alianzas", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Cogestión de planteles con fundaciones, universidades y colegios privados." },
+      { name: "Supervisores Técnicos de Calidad y Rendimiento", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Auditoría pedagógica y estándares académicos en aulas sin sesgo político." },
+      { name: "Analistas del Voucher Escolar y Matrícula", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Validación biométrica estudiantil y liquidación directa a instituciones educativas." },
+      { name: "Especialistas en Tecnología Educativa, STEM e Inglés", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Despliegue de laboratorios de robótica, programación e idiomas en parroquias." },
+      { name: "Ingeniero Inspector de Infraestructura Escolar", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Fiscalización de contratos de mantenimiento privado de colegios y escuelas." },
+      { name: "Nutricionista / Auditor de Alimentación Escolar Privada", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Control calórico y de higiene del servicio de comedores concesionados." },
+      { name: "Analista de Convenios Institucionales y Pasantías", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Enlace con politécnicos y empresas locales para inserción laboral juvenil." }
+    ]
+  },
+  {
+    id: 8,
+    name: "Dirección de Cultura y Turismo (Agencia de Fomento)",
+    desc: "Promoción de Marca Ciudad, rutas turísticas privadas (El Jarillo, Tren El Encanto) y fondo concursable de arte.",
+    tot: 8,
+    c99: 2,
+    carr: 6,
+    pol: 0,
+    legal: "LOPPM Art. 88; Ley de Turismo; Ley de Protección del Patrimonio Cultural.",
+    focus: "Cero eventos proselitistas. La Alcaldía fomenta la iniciativa privada, museos y el turismo gastronómico y de aventura.",
+    positions: [
+      { name: "Director(a) de Cultura y Turismo", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Promoción cultural y desarrollo de la marca turística municipal." },
+      { name: "Coordinador(a) de Marca Ciudad y Fomento Turístico", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Posicionamiento de Guaicaipuro como destino ecológico y de eventos." },
+      { name: "Coordinador(a) de Espacios Culturales y Teatros", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Administración autosustentable del Ateneo y salas culturales." },
+      { name: "Promotores del Fondo Concursable de Arte", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Gestión de becas y concursos para creadores independientes." },
+      { name: "Especialistas en Marketing Turístico y Rutas", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Diseño de rutas de flores, parapente y patrimonio con posadas." },
+      { name: "Analista de Patrimonio Histórico", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Preservación del casco histórico de Los Teques y pueblos." }
+    ]
+  },
+  {
+    id: 9,
+    name: "Dirección de Deportes y Recreación (Agencia de Fomento)",
+    desc: "Autosustentabilidad de canchas y complejos deportivos mediante concesiones, ligas privadas y escuelas escolares.",
+    tot: 8,
+    c99: 2,
+    carr: 6,
+    pol: 0,
+    legal: "LOPPM Art. 88; Ley del Deporte, Actividad Física y Educación Física.",
+    focus: "Mantenimiento cero a cargo del presupuesto municipal: clubes privados y escuelas de fútbol/béisbol gestionan las canchas.",
+    positions: [
+      { name: "Director(a) de Deportes y Recreación", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Fomento masivo del deporte escolar, juvenil y federado." },
+      { name: "Coordinador(a) de Ligas y Concesiones Deportivas", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Alianzas y concesión de instalaciones para autosostenibilidad." },
+      { name: "Coordinador(a) de Complejos e Instalaciones", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Supervisión del estado de las canchas y estadios municipales." },
+      { name: "Promotores de Deporte Escolar y Competitivo", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Organización de juegos intercolegiales y detección de talentos." },
+      { name: "Especialistas en Recreación Comunitaria", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Planes vacacionales y actividades recreativas en comunidades." },
+      { name: "Analista de Registro de Entidades Deportivas", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Certificación y legalización de clubes deportivos comunitarios." }
+    ]
+  },
+  {
+    id: 10,
+    name: "Sindicatura Procuraduría Municipal (Bufete Municipal)",
+    desc: "Defensa jurídica patrimonial del Municipio, representación en juicios y visado de contratos de APP y concesiones.",
+    tot: 10,
+    c99: 3,
+    carr: 7,
+    pol: 0,
+    legal: "LOPPM Arts. 115 a 121 (Representación judicial y extrajudicial del Municipio).",
+    focus: "Blindaje contractual estricto. Protege las concesiones y recupera activos municipales expoliados por gestiones anteriores.",
+    positions: [
+      { name: "Síndico(a) Procurador(a) Municipal", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Abogado general del Municipio (designación según LOPPM Art. 115)." },
+      { name: "Coordinador(a) de Litigios y Juicios", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Dirección de juicios contenciosos, laborales y amparos." },
+      { name: "Coordinador(a) de Consultoría y Contratos", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Dictámenes jurídicos y visado de pliegos de licitación y APPs." },
+      { name: "Abogados Litigantes de Tribunales", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Defensa judicial diaria en tribunales del estado Miranda." },
+      { name: "Abogados Consultores de Dictámenes", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Redacción de ordenanzas y análisis de legalidad de actos." },
+      { name: "Especialista en Bienes Patrimoniales", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Inventario físico y legal de terrenos, inmuebles y vehículos." },
+      { name: "Asistente Jurídico y Notificaciones", type: "carr", count: 1, tag: "Carrera Técnica", desc: "Gestión procesal, archivos judiciales y citaciones." }
+    ]
+  },
+  {
+    id: 11,
+    name: "Unidad de Auditoría Interna (Control Fiscal Autónomo)",
+    desc: "Órgano de control posterior e imparcial para garantizar cero corrupción y licitaciones transparentes.",
+    tot: 8,
+    c99: 1,
+    carr: 7,
+    pol: 0,
+    legal: "LOCGRSNCF Arts. 35 a 42; LOPPM Art. 152.",
+    focus: "Garantiza la caja de cristal. Su titular se elige por concurso público de méritos con baremo nacional.",
+    positions: [
+      { name: "Auditor(a) Interno(a) Titular", type: "c99", count: 1, tag: "Cargo 99 (Alto Nivel)", desc: "Máxima autoridad de control fiscal interno (Concurso LOCGRSNCF)." },
+      { name: "Auditores Fiscales de Cuentas y Finanzas", type: "carr", count: 3, tag: "Carrera Técnica", desc: "Revisión posterior de órdenes de pago, tesorería y tributos." },
+      { name: "Contadores de Auditoría de Obras y Contratos", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Verificación física de mediciones de obras y concesiones." },
+      { name: "Abogados de Determinación de Responsabilidades", type: "carr", count: 2, tag: "Carrera Técnica", desc: "Sustanciación de expedientes de reparos y sanciones administrativas." }
+    ]
+  },
+  {
+    id: 12,
+    name: "Enlaces Parroquiales Ejecutivos (Descentralización Foránea)",
+    desc: "Presencia directa del Alcalde en las 6 parroquias foráneas para operar la Ventanilla Única Parroquial Digital.",
+    tot: 6,
+    c99: 6,
+    carr: 0,
+    pol: 0,
+    legal: "LOPPM Art. 88 num. 5 (Delegación ejecutiva territorial).",
+    focus: "Gobernanza territorial directa. Los habitantes de caseríos no tienen que viajar a Los Teques para hacer sus trámites.",
+    positions: [
+      { name: "Enlace Parroquial de Cecilio Acosta", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Atención ejecutiva en San Diego de los Altos y San José." },
+      { name: "Enlace Parroquial de Paracotos", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Atención ejecutiva en Paracotos y Eje Agroindustrial La Cumaca." },
+      { name: "Enlace Parroquial de San Pedro de los Altos", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Atención ejecutiva en el Casco, Pozo de Rosas y Garabato." },
+      { name: "Enlace Parroquial de El Jarillo", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Atención ejecutiva y enlace agroturístico en El Jarillo." },
+      { name: "Enlace Parroquial de Tácata", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Atención ejecutiva comunitaria en el Valle de Tácata." },
+      { name: "Enlace Parroquial de Altagracia de la Montaña", type: "c99", count: 1, tag: "Cargo 99 (Confianza)", desc: "Atención ejecutiva en Altagracia y caseríos agrícolas limítrofes." }
+    ]
+  }
+];
+
+let currentFilter = 'all';
+
+function renderOffices() {
+  const container = document.getElementById('officesContainer');
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  container.innerHTML = '';
+
+  officesData.forEach(office => {
+    // Filter positions
+    const filteredPositions = office.positions.filter(p => {
+      const matchQuery = p.name.toLowerCase().includes(query) || 
+                         office.name.toLowerCase().includes(query) || 
+                         p.desc.toLowerCase().includes(query);
+      if (!matchQuery) return false;
+
+      if (currentFilter === 'c99') return p.type === 'c99';
+      if (currentFilter === 'carr') return p.type === 'carr';
+      if (currentFilter === 'pol') return p.type === 'pol';
+      return true;
+    });
+
+    if (query && filteredPositions.length === 0) return;
+
+    const card = document.createElement('div');
+    card.className = 'office-section';
+    const isOpen = query ? 'open' : '';
+    const isActive = query ? 'active' : '';
+
+    let rowsHtml = '';
+    filteredPositions.forEach(p => {
+      let badgeClass = 'tag-carr';
+      if (p.type === 'c99') badgeClass = 'tag-c99';
+      if (p.type === 'pol') badgeClass = 'tag-pol';
+
+      rowsHtml += `
+        <tr>
+          <td style="font-weight: 700;">${p.name}</td>
+          <td><span class="${badgeClass}">${p.tag}</span></td>
+          <td style="text-align: center; font-weight: bold;">${p.count}</td>
+          <td style="color: #64748B;">${p.desc}</td>
+        </tr>
+      `;
+    });
+
+    card.innerHTML = `
+      <div class="accordion-card">
+        <div class="accordion-header ${isActive}" onclick="toggleAccordion(this)">
+          <div class="office-title-wrap">
+            <div class="office-num">${office.id}</div>
+            <div>
+              <div class="office-name">${office.name}</div>
+              <div class="office-desc">${office.desc}</div>
+            </div>
+          </div>
+          <div class="office-badges">
+            <span class="badge badge-tot">Total: ${office.tot}</span>
+            <span class="badge badge-c99">C-99: ${office.c99}</span>
+            ${office.carr > 0 ? `<span class="badge badge-carr">Carrera: ${office.carr}</span>` : ''}
+            ${office.pol > 0 ? `<span class="badge badge-pol">Seguridad/PC: ${office.pol}</span>` : ''}
+            <svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="accordion-body ${isOpen}">
+          <div class="body-meta-grid">
+            <div class="meta-block">
+              <h4>⚖️ Base Legal Venezolana</h4>
+              <p>${office.legal}</p>
+            </div>
+            <div class="meta-block">
+              <h4>🎯 Enfoque Estratégico Liberal</h4>
+              <p>${office.focus}</p>
+            </div>
+          </div>
+          <table class="pos-table">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Denominación del Cargo</th>
+                <th style="width: 20%;">Clasificación Legal</th>
+                <th style="width: 10%; text-align: center;">Plazas</th>
+                <th style="width: 38%;">Misión / Funciones Principales</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function toggleAccordion(header) {
+  header.classList.toggle('active');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function toggleAll(open) {
+  document.querySelectorAll('.accordion-header').forEach(h => {
+    if (open) {
+      h.classList.add('active');
+      h.nextElementSibling.classList.add('open');
+    } else {
+      h.classList.remove('active');
+      h.nextElementSibling.classList.remove('open');
+    }
+  });
+}
+
+function setFilter(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  renderOffices();
+}
+
+function handleSearch() {
+  renderOffices();
+}
+
+// Initial Render
+renderOffices();
+</script>
+
+</body>
+</html>
