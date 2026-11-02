@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { OFFICES_DATA } from '../data/officesData';
 import { ORGANIGRAMA_KPIS } from '../constants';
 import { OfficeDepartment } from '../types';
+import EducationStructureProposal from '../components/EducationStructureProposal';
 
 export default function Estructura() {
   const [selectedOfficeId, setSelectedOfficeId] = useState<number>(7);

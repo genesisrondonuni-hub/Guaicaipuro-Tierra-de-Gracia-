@@ -1,183 +1,91 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { 
-  Menu, 
-  X, 
-  Home, 
-  BookOpen, 
-  Layers, 
-  LayoutGrid, 
-  MapPin, 
-  FileText, 
-  GraduationCap, 
-  Sparkles,
-  LogOut
-} from 'lucide-react';
+import { Menu, X, Home, BookOpen, Layers, LayoutGrid, MapPin, FileText } from 'lucide-react';
 import { useState } from 'react';
-import VenteLogo from './VenteLogo';
 
-interface NavItem {
-  name: string;
-  path: string;
-  icon: any;
-  badge?: string;
-}
-
-interface NavbarProps {
-  currentUser?: string | null;
-  onLogout?: () => void;
-}
-
-export default function Navbar({ currentUser, onLogout }: NavbarProps) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  const navItems: NavItem[] = [
+  const navItems = [
     { name: 'Inicio', path: '/', icon: Home },
     { name: 'Principios', path: '/principios', icon: BookOpen },
-    { name: 'Ejes del Plan', path: '/ejes', icon: Layers },
-    { name: 'Estructura Municipal', path: '/estructura', icon: LayoutGrid },
-    { name: 'Educación', path: '/educacion', icon: GraduationCap },
-    { name: '7 Parroquias', path: '/parroquias', icon: MapPin },
-    { name: 'Descargas', path: '/documentacion', icon: FileText },
+    { name: 'Ejes', path: '/ejes', icon: Layers },
+    { name: 'Estructura', path: '/estructura', icon: LayoutGrid },
+    { name: 'Parroquias', path: '/parroquias', icon: MapPin },
+    { name: 'Documentación', path: '/documentacion', icon: FileText },
   ];
 
   return (
-    <header className="vente-navbar">
-      <nav className="vente-container">
-        <div className="flex justify-between h-20 items-center">
-          
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <VenteLogo subtitle="GUAICAIPURO" />
-          </Link>
+    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <Link to="/" className="flex-shrink-0 flex items-center gap-2">
+              <div className="w-10 h-10 bg-sky-500 rounded-lg flex items-center justify-center text-white font-bold text-xs text-center leading-tight">
+                VENTE<br/>VV
+              </div>
+              <span className="font-sans font-bold text-xl tracking-tight text-gray-900 hidden sm:block">
+                Guaicaipuro <span className="text-sky-500">Tierra de Gracia</span>
+              </span>
+            </Link>
+          </div>
           
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`vente-nav-link ${isActive ? 'active' : ''}`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  <span>{item.name}</span>
-                  {item.badge && (
-                    <span 
-                      className="ml-1 text-[10px] font-bold px-2 py-0.5 rounded uppercase"
-                      style={{ backgroundColor: 'var(--color-primary)', color: '#FFFFFF' }}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Primary CTA Button & Logout */}
-          <div className="hidden sm:flex items-center gap-2.5">
-            <Link
-              to="/educacion#simulador"
-              className="btn-vente-primary"
-              style={{ padding: '10px 18px', fontSize: '13px' }}
-            >
-              <Sparkles className="w-4 h-4" />
-              Simular Voucher
-            </Link>
-            {onLogout && (
-              <button
-                onClick={onLogout}
-                title={currentUser ? `Sesión activa: ${currentUser} — Haz clic para salir` : 'Cerrar sesión'}
-                className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-lg text-xs font-bold border transition-colors hover:bg-gray-100 cursor-pointer"
-                style={{
-                  borderColor: 'var(--color-border)',
-                  color: 'var(--color-heading)',
-                }}
+          <div className="hidden md:flex items-center space-x-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  location.pathname === item.path
+                    ? 'bg-sky-50 text-sky-600'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-sky-500'
+                }`}
               >
-                <LogOut className="w-4 h-4" style={{ color: 'var(--color-secondary)' }} />
-                <span className="hidden xl:inline">Salir</span>
-              </button>
-            )}
+                {item.name}
+              </Link>
+            ))}
           </div>
 
-          {/* Mobile Menu Trigger */}
-          <div className="lg:hidden flex items-center">
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg focus:outline-none"
-              style={{ color: 'var(--color-heading)' }}
-              aria-label="Toggle Menu"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none"
             >
-              {isOpen ? <X className="h-6 w-6" style={{ color: 'var(--color-primary)' }} /> : <Menu className="h-6 w-6" />}
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* Mobile Menu */}
       {isOpen && (
         <motion.div 
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          className="lg:hidden bg-white px-6 pt-2 pb-6 space-y-2"
-          style={{ borderTop: '1px solid var(--color-border)' }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden bg-white border-b border-gray-200"
         >
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsOpen(false)}
-                className={`vente-nav-link w-full justify-between ${isActive ? 'active' : ''}`}
+                className={`flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium ${
+                  location.pathname === item.path
+                    ? 'bg-sky-50 text-sky-600'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-sky-500'
+                }`}
               >
-                <div className="flex items-center gap-3">
-                  <item.icon className="h-4 w-4" />
-                  <span>{item.name}</span>
-                </div>
-                {item.badge && (
-                  <span 
-                    className="text-[10px] font-bold px-2 py-0.5 rounded uppercase"
-                    style={{ backgroundColor: 'var(--color-primary)', color: '#FFFFFF' }}
-                  >
-                    {item.badge}
-                  </span>
-                )}
+                <item.icon className="h-5 w-5" />
+                {item.name}
               </Link>
-            );
-          })}
-          
-          <div className="pt-4 space-y-2.5" style={{ borderTop: '1px solid var(--color-border)' }}>
-            <Link
-              to="/educacion#simulador"
-              onClick={() => setIsOpen(false)}
-              className="btn-vente-primary w-full"
-            >
-              Simular Voucher Educativo
-            </Link>
-            {onLogout && (
-              <button
-                onClick={() => {
-                  setIsOpen(false);
-                  onLogout();
-                }}
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-xs font-bold border"
-                style={{
-                  borderColor: 'var(--color-border)',
-                  color: 'var(--color-heading)',
-                  backgroundColor: '#F8F8F8',
-                }}
-              >
-                <LogOut className="w-4 h-4" style={{ color: 'var(--color-secondary)' }} />
-                <span>Cerrar Sesión ({currentUser || 'Usuario'})</span>
-              </button>
-            )}
+            ))}
           </div>
         </motion.div>
       )}
-    </header>
+    </nav>
   );
 }

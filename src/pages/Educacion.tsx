@@ -23,6 +23,7 @@ import {
 import { Link } from 'react-router-dom';
 import { EDUCATION_PILLARS, PARISHES } from '../constants';
 import { OFFICES_DATA } from '../data/officesData';
+import EducationStructureProposal from '../components/EducationStructureProposal';
 
 export default function Educacion() {
   const eduOffice = OFFICES_DATA.find(o => o.id === 7)!;

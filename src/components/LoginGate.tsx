@@ -21,8 +21,8 @@ export default function LoginGate({ onLoginSuccess }: LoginGateProps) {
   const [remember, setRemember] = useState(true);
   const [error, setError] = useState('');
 
-  const envUser = import.meta.env.VITE_APP_USER;
-  const envPass = import.meta.env.VITE_APP_PASSWORD;
+  const envUser = (import.meta as any).env?.VITE_APP_USER;
+  const envPass = (import.meta as any).env?.VITE_APP_PASSWORD;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
