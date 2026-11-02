@@ -7,6 +7,15 @@ import { Link } from 'react-router-dom';
 export default function Ejes() {
   const [activeAxis, setActiveAxis] = useState(AXES[0].id);
 
+  const handleSelectAxis = (id: number) => {
+    setActiveAxis(id);
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setTimeout(() => {
+        document.getElementById('detalle-eje')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       {/* Sección 1: Ejes Estratégicos (--color-bg-light) */}
@@ -36,7 +45,8 @@ export default function Ejes() {
                 return (
                   <button
                     key={axis.id}
-                    onClick={() => setActiveAxis(axis.id)}
+                    type="button"
+                    onClick={() => handleSelectAxis(axis.id)}
                     className="w-full text-left p-4 rounded-lg transition-all flex items-center justify-between cursor-pointer"
                     style={{
                       backgroundColor: isSelected ? 'var(--color-primary)' : '#FFFFFF',
@@ -73,7 +83,7 @@ export default function Ejes() {
             </div>
 
             {/* Content Area */}
-            <div className="lg:col-span-8">
+            <div id="detalle-eje" className="lg:col-span-8 scroll-mt-24">
               {AXES.map((axis) => (
                 activeAxis === axis.id && (
                   <motion.div

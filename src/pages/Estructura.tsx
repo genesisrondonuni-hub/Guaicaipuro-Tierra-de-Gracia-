@@ -21,6 +21,15 @@ export default function Estructura() {
 
   const selectedOffice: OfficeDepartment = OFFICES_DATA.find(o => o.id === selectedOfficeId) || OFFICES_DATA[0];
 
+  const handleSelectOffice = (id: number, forceScroll = false) => {
+    setSelectedOfficeId(id);
+    if (forceScroll || (typeof window !== 'undefined' && window.innerWidth < 1024)) {
+      setTimeout(() => {
+        document.getElementById('detalle-despacho')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    }
+  };
+
   const filteredPositions = selectedOffice.positions.filter(pos => {
     const matchesSearch = pos.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           pos.desc.toLowerCase().includes(searchTerm.toLowerCase());
@@ -95,7 +104,7 @@ export default function Estructura() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <button onClick={() => setSelectedOfficeId(7)} className="btn-vente-secondary" style={{ padding: '12px 20px' }}>
+                <button type="button" onClick={() => handleSelectOffice(7, true)} className="btn-vente-secondary cursor-pointer" style={{ padding: '12px 20px' }}>
                   Cargar Cargos en la Tabla
                 </button>
                 <Link to="/educacion" className="btn-vente-primary" style={{ padding: '12px 20px' }}>
@@ -129,7 +138,8 @@ export default function Estructura() {
                   return (
                     <button
                       key={office.id}
-                      onClick={() => setSelectedOfficeId(office.id)}
+                      type="button"
+                      onClick={() => handleSelectOffice(office.id)}
                       className="w-full text-left p-4 rounded-lg transition-all flex items-center justify-between cursor-pointer"
                       style={{
                         backgroundColor: isSelected ? 'var(--color-primary)' : '#FFFFFF',
@@ -165,7 +175,7 @@ export default function Estructura() {
             </div>
 
             {/* Detail Panel */}
-            <div className="lg:col-span-7 vente-card p-6 sm:p-8 space-y-6">
+            <div id="detalle-despacho" className="lg:col-span-7 vente-card p-6 sm:p-8 space-y-6 scroll-mt-24">
               <div className="pb-6 space-y-4" style={{ borderBottom: '1px solid var(--color-border)' }}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span 
@@ -284,7 +294,7 @@ export default function Estructura() {
                   <span className="text-xs font-bold" style={{ color: 'var(--color-heading)' }}>
                     ¿Deseas simular el cheque escolar para tu familia?
                   </span>
-                  <Link to="/educacion#simulador" className="btn-vente-primary" style={{ padding: '8px 16px', fontSize: '12px' }}>
+                  <Link to="/educacion?section=simulador" className="btn-vente-primary" style={{ padding: '8px 16px', fontSize: '12px' }}>
                     Abrir Simulador <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>

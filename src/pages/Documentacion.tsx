@@ -164,10 +164,10 @@ export default function Documentacion() {
               
               <div className="space-y-3">
                 {[
-                  { title: "Dirección de Educación y Capital Intelectual (Tierra de Gracia)", size: "Oficial 2026", type: "Vouchers", highlight: true },
-                  { title: "Plan de Gobierno Municipal - Alcaldía de Guaicaipuro 2025-2029", size: "Completo", type: "Doctrina" },
-                  { title: "Venezuela Tierra de Gracia (Programa de Gobierno Presidencial)", size: "85 Páginas", type: "Nacional" },
-                  { title: "Plan de Desarrollo Parroquial: San Pedro Tierra de Gracia", size: "Local", type: "Parroquia" }
+                  { title: "Dirección de Educación y Capital Intelectual (Tierra de Gracia)", size: "Oficial 2026", type: "Vouchers", highlight: true, to: "/educacion" },
+                  { title: "Plan de Gobierno Municipal - Alcaldía de Guaicaipuro 2025-2029", size: "6 Ejes Estratégicos", type: "Doctrina", to: "/ejes" },
+                  { title: "Venezuela Tierra de Gracia (Principios Rectores Liberales)", size: "6 Pilares Éticos", type: "Nacional", to: "/principios" },
+                  { title: "Plan de Desarrollo Parroquial: San Pedro Tierra de Gracia", size: "Corto, Mediano y Largo Plazo", type: "Parroquia", to: "/parroquias?parroquia=san-pedro" }
                 ].map((doc, i) => (
                   <div 
                     key={i} 
@@ -193,18 +193,12 @@ export default function Documentacion() {
                         <div className="text-xs" style={{ color: 'var(--color-text)' }}>{doc.size}</div>
                       </div>
                     </div>
-                    {doc.highlight ? (
-                      <Link
-                        to="/educacion"
-                        className="vente-link text-xs flex items-center gap-1 uppercase"
-                      >
-                        Ver <ExternalLink className="w-3.5 h-3.5" />
-                      </Link>
-                    ) : (
-                      <button className="p-2 cursor-pointer" style={{ color: 'var(--color-primary)' }}>
-                        <Download className="w-4 h-4" />
-                      </button>
-                    )}
+                    <Link
+                      to={doc.to}
+                      className="vente-link text-xs flex items-center gap-1 uppercase font-bold flex-shrink-0"
+                    >
+                      Abrir <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
                 ))}
               </div>

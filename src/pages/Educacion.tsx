@@ -110,23 +110,37 @@ export default function Educacion() {
               {eduOffice.desc}
             </p>
 
-            <div className="flex flex-wrap gap-4 items-center">
-              <a href="#simulador" className="btn-vente-primary">
+            <div className="flex flex-wrap gap-3 sm:gap-4 items-center">
+              <button
+                type="button"
+                onClick={() => document.getElementById('simulador')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                className="btn-vente-primary cursor-pointer"
+              >
                 <Calculator className="w-5 h-5" />
                 Simular Cheque Escolar
-              </a>
-              <a href="#estructura-cargos" className="btn-vente-secondary">
+              </button>
+              <button
+                type="button"
+                onClick={() => document.getElementById('subestructuras-calidad')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                className="btn-vente-secondary cursor-pointer"
+              >
+                <GraduationCap className="w-5 h-5" />
+                Sub-Estructuras y Calidad
+              </button>
+              <button
+                type="button"
+                onClick={() => document.getElementById('estructura-cargos')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                className="btn-vente-secondary cursor-pointer"
+              >
                 <Users className="w-5 h-5" />
                 Ver los 14 Cargos Oficiales
-              </a>
-              <a 
-                href="/organigrama-oficial.html" 
-                target="_blank" 
-                rel="noreferrer" 
+              </button>
+              <Link 
+                to="/organigrama" 
                 className="btn-vente-secondary"
               >
                 Organigrama Web ↗
-              </a>
+              </Link>
             </div>
           </div>
 

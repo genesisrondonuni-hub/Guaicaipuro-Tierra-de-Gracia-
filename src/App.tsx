@@ -21,11 +21,26 @@ const AUTH_STORAGE_KEY = 'guaicaipuro_auth_user';
 
 function ScrollToTop() {
   const location = useLocation();
+
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const section = params.get('section') || (location.hash ? location.hash.replace('#', '') : '');
+
+    if (section) {
+      const timer = setTimeout(() => {
+        const el = document.getElementById(section);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 120);
+      return () => clearTimeout(timer);
+    }
+
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
-  }, [location.pathname]);
+  }, [location.pathname, location.search, location.hash]);
+
   return null;
 }
 
@@ -79,7 +94,6 @@ export default function App() {
   });
 
   useEffect(() => {
-    // Sync across tabs if logged out
     const handleStorageChange = () => {
       try {
         const user = localStorage.getItem(AUTH_STORAGE_KEY) || sessionStorage.getItem(AUTH_STORAGE_KEY);
@@ -203,14 +217,14 @@ export default function App() {
                 <h4 className="text-xs font-bold uppercase tracking-widest" style={{ color: '#FFFFFF' }}>
                   Parroquias
                 </h4>
-                <ul className="space-y-2 text-sm" style={{ color: '#CCCCCC' }}>
-                  <li>Los Teques (Capital Urbana)</li>
-                  <li>San Pedro de los Altos (Agrícola)</li>
-                  <li>El Jarillo (Turismo y Frutas)</li>
-                  <li>Paracotos (Industrial)</li>
-                  <li>Tácata (Puerta del Llano)</li>
-                  <li>Cecilio Acosta (Cultural)</li>
-                  <li>Altagracia de la Montaña</li>
+                <ul className="space-y-2 text-sm">
+                  <li><Link to="/parroquias?parroquia=los-teques">Los Teques (Capital Urbana)</Link></li>
+                  <li><Link to="/parroquias?parroquia=san-pedro">San Pedro de los Altos (Agrícola)</Link></li>
+                  <li><Link to="/parroquias?parroquia=el-jarillo">El Jarillo (Turismo y Frutas)</Link></li>
+                  <li><Link to="/parroquias?parroquia=paracotos">Paracotos (Industrial)</Link></li>
+                  <li><Link to="/parroquias?parroquia=tacata">Tácata (Puerta del Llano)</Link></li>
+                  <li><Link to="/parroquias?parroquia=cecilio-acosta">Cecilio Acosta (Cultural)</Link></li>
+                  <li><Link to="/parroquias?parroquia=altagracia">Altagracia de la Montaña</Link></li>
                 </ul>
               </div>
 

@@ -14,11 +14,32 @@ import {
   BookOpenCheck,
   Shield
 } from 'lucide-react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export default function Parroquias() {
-  const [selectedParish, setSelectedParish] = useState(PARISHES[1]);
+  const [searchParams] = useSearchParams();
+  const initialParishId = searchParams.get('parroquia');
+  const [selectedParish, setSelectedParish] = useState(
+    () => PARISHES.find(p => p.id === initialParishId) || PARISHES[1]
+  );
+
+  useEffect(() => {
+    const pId = searchParams.get('parroquia');
+    if (pId) {
+      const found = PARISHES.find(p => p.id === pId);
+      if (found) setSelectedParish(found);
+    }
+  }, [searchParams]);
+
+  const handleSelectParish = (parish: typeof PARISHES[0]) => {
+    setSelectedParish(parish);
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setTimeout(() => {
+        document.getElementById('detalle-parroquia')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -72,7 +93,8 @@ export default function Parroquias() {
                 return (
                   <button
                     key={parish.id}
-                    onClick={() => setSelectedParish(parish)}
+                    type="button"
+                    onClick={() => handleSelectParish(parish)}
                     className="w-full text-left p-4 rounded-lg transition-all cursor-pointer"
                     style={{
                       backgroundColor: isSelected ? 'var(--color-primary)' : '#FFFFFF',
@@ -107,7 +129,7 @@ export default function Parroquias() {
             </div>
 
             {/* Parish Detail */}
-            <div className="lg:col-span-3">
+            <div id="detalle-parroquia" className="lg:col-span-3 scroll-mt-24">
               <motion.div
                 key={selectedParish.id}
                 initial={{ opacity: 0, y: 12 }}

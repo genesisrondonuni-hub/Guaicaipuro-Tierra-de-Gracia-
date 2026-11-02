@@ -80,7 +80,7 @@ export default function Navbar({ currentUser, onLogout }: NavbarProps) {
           {/* Primary CTA Button & Logout */}
           <div className="hidden sm:flex items-center gap-2.5">
             <Link
-              to="/educacion#simulador"
+              to="/educacion?section=simulador"
               className="btn-vente-primary"
               style={{ padding: '10px 18px', fontSize: '13px' }}
             >
@@ -152,7 +152,7 @@ export default function Navbar({ currentUser, onLogout }: NavbarProps) {
           
           <div className="pt-4 space-y-2.5" style={{ borderTop: '1px solid var(--color-border)' }}>
             <Link
-              to="/educacion#simulador"
+              to="/educacion?section=simulador"
               onClick={() => setIsOpen(false)}
               className="btn-vente-primary w-full"
             >
